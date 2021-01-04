@@ -2,13 +2,12 @@
 ### RAK7200 - S76G SiP (STM32l073RX, SX1276, CXD5603GF)
 **Building firmware for the RAK7200 powered by the AcSiP S76G SiP**
 
-_**Required software:**_
+***Required software:***
 * Arduino IDE https://www.arduino.cc/en/software
 * STM32CubeProgrammer https://www.st.com/en/development-tools/stm32cubeprog.html
 
 
 * Install the Arduino IDE and STM32CubeProgrammer
-
 * Start the Arduino IDE
   * Go to **Tools > Board > Board Manager** type _STM32_ in the filter your search... field
   * Click Install to install the current version of the STM32 Cores Board
