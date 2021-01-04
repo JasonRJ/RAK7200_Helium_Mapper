@@ -1,7 +1,8 @@
 # RAK7200 Helium Mapper
 ### RAK7200 - S76G SiP (STM32l073RX, SX1276, CXD5603GF)
+<br>
 **Building firmware for the RAK7200 powered by the AcSiP S76G SiP**
-
+<br><br>
 _**Required software**_:
 * Arduino IDE https://www.arduino.cc/en/software
 * STM32CubeProgrammer https://www.st.com/en/development-tools/stm32cubeprog.html
@@ -25,7 +26,7 @@ _**Required software**_:
     * Tools > Port > ``Select the port associated with the RAK7200}``
 
 When you have finished configuring the envirnoment it sould look simular to this:
-![](https://github.com/JasonRJ/RAK7200_Helium_Mapper/documentation/images/RAK7200 S76G Arduino Settings.png)
+![](https://github.com/JasonRJ/RAK7200_Helium_Mapper/blob/master/documentation/images/RAK7200%20S76G%20Arduino%20Settings.png)
 
 ## Credits
 [RAK Wireless](https://www.rakwireless.com/) for the [WisNode Track Lite RAK7200](https://store.rakwireless.com/products/rak7200-lpwan-tracker)
