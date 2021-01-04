@@ -24,7 +24,7 @@
     * Tools > Port > `Select the port associated with the RAK7200}`
 
 When you have finished configuring the envirnoment it sould look simular to this:
-![](https://github.com/JasonRJ/RAK7200_Helium_Mapper/blob/master/documentation/images/RAK7200%20S76G%20Arduino%20Settings.png)
+[](https://github.com/JasonRJ/RAK7200_Helium_Mapper/blob/master/documentation/images/RAK7200%20S76G%20Arduino%20Settings.png)
 
 ## Credits
 [RAK Wireless](https://www.rakwireless.com/) for the [WisNode Track Lite RAK7200](https://store.rakwireless.com/products/rak7200-lpwan-tracker)
