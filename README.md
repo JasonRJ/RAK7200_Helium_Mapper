@@ -1,9 +1,8 @@
 # RAK7200 Helium Mapper
 ### RAK7200 - S76G SiP (STM32l073RX, SX1276, CXD5603GF)
-<br>
 **Building firmware for the RAK7200 powered by the AcSiP S76G SiP**
-<br><br>
-_**Required software**_:
+
+_**Required software:**_
 * Arduino IDE https://www.arduino.cc/en/software
 * STM32CubeProgrammer https://www.st.com/en/development-tools/stm32cubeprog.html
 
