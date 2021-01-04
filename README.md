@@ -21,7 +21,7 @@
     * Tools > Optimize > Smallest (Os default) or Fast (O1)
     * Tools > C Runtime Library > Newlib Nano (default)
     * Tools > Upload Method > STM32CubeProgrammer (serial)
-    * Tools > Port > ``Select the port associated with the RAK7200}``
+    * Tools > Port > `Select the port associated with the RAK7200}`
 
 When you have finished configuring the envirnoment it sould look simular to this:
 ![](https://github.com/JasonRJ/RAK7200_Helium_Mapper/blob/master/documentation/images/RAK7200%20S76G%20Arduino%20Settings.png)
