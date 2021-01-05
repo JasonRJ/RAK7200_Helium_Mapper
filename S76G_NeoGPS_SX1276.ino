@@ -83,6 +83,7 @@ HardwareSerial GNSS_SERIAL(S76G_GNSS_RX, S76G_GNSS_TX);
 
 
 static uint8_t mydata[24] = "";
+static uint8_t myDataSize = 0;
 static osjob_t sendjob;
 
 const unsigned TX_INTERVAL = 15; // Transmit every 15 seconds
@@ -119,7 +120,8 @@ static bool GNSS_probe() {
             if ((c2 == '$') && (c1 == 'G')) {
                 // got $G leave the function with GNSS port opened
                 return true;
-            } else {
+            }
+            else {
                 c2 = 0;
             }
         }
@@ -158,7 +160,8 @@ static void scanI2Cbus(void) {
             }
             CONSOLE_SERIAL.println(addr, HEX);
             nDevices++;
-        } else {
+        }
+        else {
             if (err == 4) {
                 CONSOLE_SERIAL.print("Unknown error at address 0x");
                 if (addr < 16) {
@@ -311,8 +314,10 @@ void do_send(osjob_t *j) {
     // Check if there is not a current TX/RX job running
     if (LMIC.opmode & OP_TXRXPEND) {
         CONSOLE_SERIAL.println(F("OP_TXRXPEND, not sending"));
-    } else {
-        LMIC_setTxData2(1, mydata, sizeof(mydata) - 1, 0);
+    }
+    else {
+        LMIC_setTxData2(1, mydata, myDataSize, 0);
+        myDataSize = 0;
         CONSOLE_SERIAL.println(F("Packet queued"));
     }
     // Next TX is scheduled after TX_COMPLETE event.
@@ -335,7 +340,8 @@ void setup() {
     while (!CONSOLE_SERIAL) {
         if ((millis() - serialStart) < 3000) {
             delay(100);
-        } else {
+        }
+        else {
             break;
         }
     }
@@ -530,6 +536,7 @@ void loop() {
         mydata[i++] = data >> 16;
         mydata[i++] = data >> 8;
         mydata[i++] = data;
+        myDataSize = i;
         CONSOLE_SERIAL.println();
     }
 }
