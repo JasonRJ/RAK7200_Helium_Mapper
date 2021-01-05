@@ -47,7 +47,7 @@
 #define CONSOLE_SERIAL                    Serial1
 #define GNSS_SERIAL                       Serial4
 
-// Defind Serial Port for NeoGPS Library
+// Defined Serial Port for NeoGPS Library
 #define gpsPort GNSS_SERIAL
 #define GPS_PORT_NAME "GNSS_SERIAL"
 #define DEBUG_PORT CONSOLE_SERIAL
@@ -160,7 +160,7 @@ static void scanI2Cbus(void) {
             nDevices++;
         } else {
             if (err == 4) {
-                CONSOLE_SERIAL.print("Unknow error at address 0x");
+                CONSOLE_SERIAL.print("Unknown error at address 0x");
                 if (addr < 16) {
                     CONSOLE_SERIAL.print("0");
                 }
@@ -434,7 +434,7 @@ void setup() {
 
     gpsPort.begin(115200);
     while (!gpsPort);
-    CONSOLE_SERIAL.println("GNSS UART Initalized");
+    CONSOLE_SERIAL.println("GNSS UART Initialized");
 
     // LMIC init
     os_init();
@@ -451,7 +451,7 @@ void setup() {
     LMIC_setLinkCheckMode(0);
     LMIC_setDrTxpow(DR_SF7, 14);
     LMIC_selectSubBand(1);
-    CONSOLE_SERIAL.println("Radio Initalized");
+    CONSOLE_SERIAL.println("Radio Initialized");
 
     // Start job (sending automatically starts OTAA too)
     do_send(&sendjob);
