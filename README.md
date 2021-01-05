@@ -35,5 +35,5 @@ When you have finished configuring the envirnoment it sould look simular to this
 the [WisNode Track Lite RAK7200](https://store.rakwireless.com/products/rak7200-lpwan-tracker)
 
 [Linar Yusupov](https://github.com/lyusupov) for the [POST_S76G](https://github.com/lyusupov/POST_S76G) sketch, Arduino
-board configuration and S76G pin definations which adavnced the project tremendously.
+board configuration and S76G pin definitions which advanced the project tremendously.
 
