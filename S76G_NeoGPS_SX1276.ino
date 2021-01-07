@@ -16,8 +16,8 @@
 #define S76G_RAK7200_RED_LED              PA11 // Red LED (D3) on RAK7200 active low
 #define S76G_RAK7200_GREEN_LED            PA12 // Green LED (D4) on RAK7200 active low
 #define S76G_RAK7200_ADC_VBAT             PB0  // ADC connected to the battery (VBATT 1M PB0 1.5M GND) 1.5M / (1M + 1.5M) = 0.6
-#define S76G_RAK7200_LIS3DH_INT1          PA0 // LIS3DH Interrupt INT1
-#define S76G_RAK7200_LIS3DH_INT2          PB5 // LIS3DH Interrupt INT2
+#define S76G_RAK7200_LIS3DH_INT1          PA0  // LIS3DH Interrupt INT1
+#define S76G_RAK7200_LIS3DH_INT2          PB5  // LIS3DH Interrupt INT2
 
 // GNSS GPIOs
 #define S76G_RAK7200_GNSS_POWER_ENABLE    PC4  // RAK7200 RP104N181 1V8 Enable (LDO Regulator Pos 1.8V 0.15A 5-Pin SOT-23)
