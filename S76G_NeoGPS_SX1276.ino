@@ -2,6 +2,7 @@
 #include <SPI.h>
 #include <lmic.h>     //http://librarymanager/All#MCCI+LoRaWAN+LMIC+library
 #include <hal/hal.h>
+#include <GPSfix_cfg.h> // Configures NMEA Sentences for Decoding
 #include <NMEAGPS.h>  //http://librarymanager/All#NeoGPS
 
 #define SX1276_RegVersion                 0x42
@@ -10,10 +11,13 @@
 #define S76G_CONSOLE_RX                   PA10
 #define S76G_CONSOLE_TX                   PA9
 
-// RAK7200 LED GPIOs
+// RAK7200 GPIOs
 #define S76G_RAK7200_BLUE_LED             PA8  // Blue LED (D2) on RAK7200 active low
 #define S76G_RAK7200_RED_LED              PA11 // Red LED (D3) on RAK7200 active low
 #define S76G_RAK7200_GREEN_LED            PA12 // Green LED (D4) on RAK7200 active low
+#define S76G_RAK7200_ADC_VBAT             PB0  // ADC connected to the battery (VBATT 1M PB0 1.5M GND) 1.5M / (1M + 1.5M) = 0.6
+#define S76G_RAK7200_LIS3DH_INT1          PA0 // LIS3DH INT1
+#define S76G_RAK7200_LIS3DH_INT2          PB5 // LIS3DH INT2
 
 // GNSS GPIOs
 #define S76G_RAK7200_GNSS_POWER_ENABLE    PC4  // RAK7200 RP104N181 1V8 Enable (LDO Regulator Pos 1.8V 0.15A 5-Pin SOT-23)
@@ -334,6 +338,7 @@ void setup() {
     digitalWrite(S76G_RAK7200_RED_LED, !redLEDstate);
     pinMode(S76G_RAK7200_GREEN_LED, OUTPUT);
     digitalWrite(S76G_RAK7200_GREEN_LED, greenLEDstate);
+    pinMode(S76G_RAK7200_ADC_VBAT, INPUT);
 
     CONSOLE_SERIAL.begin(115200);
     serialStart = millis();
@@ -425,10 +430,37 @@ void setup() {
     //delay(250);
     GNSS_SERIAL.write("@GPPS 0x1\r\n"); // Enable PPS
     delay(125);
-    GNSS_SERIAL.write("@GNS 0x7\r\n"); // Configure GPS, GLONASS, SBAS
+    /*
+     * @GNS Select the satellite systems to be used for positioning
+     * bit 0 : GPS          0x01
+     * bit 1 : GLONASS      0x02
+     * bit 2 : SBAS         0x04
+     * bit 3 : QZSS L1-CA   0x08
+     * 
+     */
+    //GNSS_SERIAL.write("@GNS 0x7\r\n"); // Configure GPS, GLONASS, SBAS
+    GNSS_SERIAL.write("@GNS 0x5\r\n"); // Configure GPS, SBAS
+    //GNSS_SERIAL.write("@GNS 0x1\r\n"); // Configure GPS
+    //GNSS_SERIAL.write("@GNS 0x2\r\n"); // Configure GLONASS
     delay(125);
+    /*
+     * 
+     * @BSSL Select NMEA sentences to output
+     * bit0 : GGA 0x01
+     * bit1 : GLL 0x02
+     * bit2 : GSA 0x04
+     * bit3 : GSV 0x08
+     * bit4 : GNS 0x10
+     * bit5 : RMC 0x20
+     * bit6 : VTG 0x40
+     * bit7 : ZDA 0x80
+     * 
+     */
     //GNSS_SERIAL.write("@BSSL 0xFF\r\n"); // All NMEA sentences
-    GNSS_SERIAL.write("@BSSL 0x21\r\n"); // GGA and RMC
+    //GNSS_SERIAL.write("@BSSL 0xFE\r\n"); // All NMEA sentences but GGA
+    //GNSS_SERIAL.write("@BSSL 0xB3\r\n"); // GGA, GLL, GNS, RMC, ZDA
+    GNSS_SERIAL.write("@BSSL 0xA1\r\n"); // GGA, RMC, ZDA
+    //GNSS_SERIAL.write("@BSSL 0x21\r\n"); // GGA and RMC
     delay(125);
 
     has_GNSS = GNSS_probe();
@@ -528,8 +560,8 @@ void loop() {
         CONSOLE_SERIAL.print(data);
         mydata[i++] = data >> 8;
         mydata[i++] = data;
-        //data = (int32_t)((fix.speed_mph() * 100));
-        data = (int32_t)(0);
+        data = (int32_t)((fix.speed_mph() * 100));
+        //data = (int32_t)(0);
         CONSOLE_SERIAL.print(", Speed: ");
         CONSOLE_SERIAL.print(data);
         mydata[i++] = data >> 24;
@@ -537,6 +569,7 @@ void loop() {
         mydata[i++] = data >> 8;
         mydata[i++] = data;
         myDataSize = i;
+        CONSOLE_SERIAL.print(float(analogRead(S76G_RAK7200_ADC_VBAT)) / 4096 * 3.30 / 0.6 * 10.0);
         CONSOLE_SERIAL.println();
     }
 }
