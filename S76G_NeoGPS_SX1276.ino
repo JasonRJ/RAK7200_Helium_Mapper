@@ -2,7 +2,6 @@
 #include <SPI.h>
 #include <lmic.h>     //http://librarymanager/All#MCCI+LoRaWAN+LMIC+library
 #include <hal/hal.h>
-#include <GPSfix_cfg.h> // Configures NMEA Sentences for Decoding
 #include <NMEAGPS.h>  //http://librarymanager/All#NeoGPS
 
 #define SX1276_RegVersion                 0x42
@@ -425,11 +424,11 @@ void setup() {
     GNSS_SERIAL.write("@GCD\r\n"); // Cold start
     delay(500);
     //GNSS_SERIAL.write("@GSW\r\n"); // Warm start
-    //delay(250);
+    //delay(500);
     //GNSS_SERIAL.write("@GSP\r\n"); // Hot start for position accuracy
-    //delay(250);
-    GNSS_SERIAL.write("@GPPS 0x1\r\n"); // Enable PPS
-    delay(125);
+    //delay(500);
+    //GNSS_SERIAL.write("@GPPS 0x1\r\n"); // Enable PPS
+    //delay(125);
     /*
      * @GNS Select the satellite systems to be used for positioning
      * bit 0 : GPS          0x01
@@ -459,8 +458,8 @@ void setup() {
     //GNSS_SERIAL.write("@BSSL 0xFF\r\n"); // All NMEA sentences
     //GNSS_SERIAL.write("@BSSL 0xFE\r\n"); // All NMEA sentences but GGA
     //GNSS_SERIAL.write("@BSSL 0xB3\r\n"); // GGA, GLL, GNS, RMC, ZDA
-    GNSS_SERIAL.write("@BSSL 0xA1\r\n"); // GGA, RMC, ZDA
-    //GNSS_SERIAL.write("@BSSL 0x21\r\n"); // GGA and RMC
+    //GNSS_SERIAL.write("@BSSL 0xA1\r\n"); // GGA, RMC, ZDA
+    GNSS_SERIAL.write("@BSSL 0x21\r\n"); // GGA and RMC
     delay(125);
 
     has_GNSS = GNSS_probe();
@@ -569,6 +568,7 @@ void loop() {
         mydata[i++] = data >> 8;
         mydata[i++] = data;
         myDataSize = i;
+        CONSOLE_SERIAL.print(", V: ");
         CONSOLE_SERIAL.print(float(analogRead(S76G_RAK7200_ADC_VBAT)) / 4096 * 3.30 / 0.6 * 10.0);
         CONSOLE_SERIAL.println();
     }
